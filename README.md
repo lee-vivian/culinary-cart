@@ -7,6 +7,7 @@ Your own kitchen inventory management system to improve the prospect and ease of
 - Quickly search for recipes
 - Filter searches by: cuisine, cook time, dietary restrictions and more
 - Keep a online inventory of your pantry
+- Generate recipe suggestions based on items already in your pantry
 - Create a meal plan
 - See your cooking history
 - Automatically generate shopping lists for missing ingredients
