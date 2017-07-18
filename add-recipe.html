@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Add Recipe</title>
+
+  <link href = "style.css" type = "text/css" rel = "stylesheet">
+</head>
+
+<body>
+
+  <nav>
+    <a href = "index.html">Home</a>
+    <li class = "dropdown">
+      <a href="#" class = "dropbtn">Recipes</a>
+      <div class = "dropdown-content">
+        <a href = "search-recipes.php">Search</a>
+        <a href = "add-recipe.html">Add</a>
+      </div>
+    </li>
+    <a href="pantry.php">Pantry</a>
+    <a href="plan.php">Weekly Plan</a>
+    <a href="list.php">Grocery List</a>
+    <a href="history.php">History</a>
+    <a href="converter.php">Converter</a>
+    <a href="aboutus.html">About Us</a>
+  </nav>
+
+<div style="margin-left:18%;padding:1px 16px;height:1000px;">
+
+  <div class = "add-recipe">
+
+  <h1>Add Recipe</h1>
+
+  <form action = "insert-recipe.php" method = "post">
+    Recipe Name:<br>
+      <input type = "text" name = "name" placeholder="Recipe" required> <br><br>
+    Prep Time:<br>
+      <input type = "number" name = "prep" min = "0" placeholder="0" required> min.<br><br>
+    Cook Time:<br>
+      <input type = "number" name = "cook" min = "0" placeholder=" 0" required> min.<br><br>
+    Cuisine:<br>
+      <input type = "text" name = "cuisine" placeholder="Cuisine"> <br><br>
+    Dietary Restrictions:<br>
+    <select name = "diet">
+      <option value = "none">None</option>
+      <option value = "vegetarian">Vegetarian</option>
+      <option value = "vegan">Vegan</option>
+      <option value = "gluten free">Gluten-Free</option>
+      <option value = "paleo">Paleo</option>
+      <option value = "kosher">Kosher</option>
+      <option value = "pescetarian">Pescetarian</option>
+      <option value = "nut allergies">Nut Allergies</option>
+    </select>
+    <br><br>
+    Meal Type:<br>
+    <select name = "type">
+      <option value = "meal">Meal</option>
+      <option value = "drink">Drink</option>
+      <option value = "snack">Snack</option>
+    </select>
+    <br><br>
+    Servings:<br>
+      <input type = "number" name = "servings" min = "1" required placeholder="0">
+    <br><br>
+    <input type = "submit" value = "Next">
+
+    <input type = "reset" value = "Clear">
+  </form>
+
+  </div>
+
+</div>
+
+</body>
+
+</html>
