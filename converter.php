@@ -16,7 +16,7 @@
       <a href="#" class = "dropbtn">Recipes</a>
       <div class = "dropdown-content">
         <a href = "search-recipes.php">Search</a>
-        <a href = "add-recipe.php">Add</a>
+        <a href = "add-recipe.html">Add</a>
       </div>
     </li>
     <a href="pantry.php">Pantry</a>
