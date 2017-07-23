@@ -12,7 +12,7 @@ if ($conn->connect_error) {
 }
 
 $stepNum = $_POST['stepNum'];
-$description = "''" . $_POST['description'] . "''";
+$description = "'" . $_POST['description'] . "'";
 
 $sql = 'SELECT recipe_id
   FROM recipes
