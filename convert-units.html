@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <title>Measurement Converter</title>
+  <link><link href = "style.css" type = "text/css" rel = "stylesheet"></link>
+  <link><link href = "tabs.css" type = "text/css" rel = "stylesheet"></link>
+</head>
+
+<body>
+  <nav>
+    <a href = "index.html">Home</a>
+    <li class = "dropdown">
+      <a href="#" class = "dropbtn">Recipes</a>
+      <div class = "dropdown-content">
+        <a href = "search-recipes.php">Search</a>
+        <a href = "add-recipe.html">Add</a>
+      </div>
+    </li>
+    <a href="pantry.php">Pantry</a>
+    <a href="plan.php">Weekly Plan</a>
+    <a href="list.php">Grocery List</a>
+    <a href="history.php">History</a>
+    <a href="convert-units.html">Converter</a>
+    <a href="aboutus.html">About Us</a>
+  </nav>
+
+  <div style="margin-left:18%;padding:1px 16px;height:1000px;">
+
+    <h1>Measurement Converter</h1><br>
+
+    <div class="tab">
+      <button class="tablinks" onclick="openUnitType(event, 'Weight')"
+        id="defaultOpen">Weight</button>
+      <button class="tablinks" onclick="openUnitType(event, 'Volume')">Volume</button>
+    </div>
+
+    <div id="Weight" class="tabcontent">
+      <form action="convert.php">
+        Quantity:<br>
+        <input type = "text" name = "quantity" placeholder="0.00"> <br><br>
+
+        Weight Before:<br>
+        <select name = "weight-before">
+          <option value = "lb">lb</option>
+          <option value = "oz">oz</option>
+          <option value = "g">g</option>
+          <option value = "kg">kg</option>
+        </select>
+        <br><br>
+
+        Weight After:<br>
+        <select name = "weight-after">
+          <option value = "lb">lb</option>
+          <option value = "oz">oz</option>
+          <option value = "g">g</option>
+          <option value = "kg">kg</option>
+        </select>
+        <br><br>
+
+        <input type = "submit" value = "Convert">
+        <input type = "reset" value = "Reset">
+      </form>
+    </div>
+
+    <div id="Volume" class="tabcontent">
+      <p>display volume form here</p>
+    </div>
+
+    <script>
+    function openUnitType(evt, unitType) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(unitType).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
+    </script>
+
+  </div>
+
+</body>
+</html>
