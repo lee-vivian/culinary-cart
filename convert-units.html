@@ -37,12 +37,13 @@
     </div>
 
     <div id="Weight" class="tabcontent">
-      <form action="convert.php">
+      <form action="convert.php" method = "post">
+        <input type = "hidden" name = "unitType" value="weight">
         Quantity:<br>
-        <input type = "text" name = "quantity" placeholder="0.00"> <br><br>
+        <input type = "number" name = "quantity" min = "0" placeholder="0.00" required> <br><br>
 
         Weight Before:<br>
-        <select name = "weight-before">
+        <select name = "unitBefore">
           <option value = "lb">lb</option>
           <option value = "oz">oz</option>
           <option value = "g">g</option>
@@ -51,7 +52,7 @@
         <br><br>
 
         Weight After:<br>
-        <select name = "weight-after">
+        <select name = "unitAfter">
           <option value = "lb">lb</option>
           <option value = "oz">oz</option>
           <option value = "g">g</option>
@@ -65,7 +66,42 @@
     </div>
 
     <div id="Volume" class="tabcontent">
-      <p>display volume form here</p>
+      <form action="convert.php" method = "post">
+        <input type = "hidden" name = "unitType" value="volume">
+        Quantity:<br>
+        <input type = "number" name = "quantity" min = "0" placeholder="0.00" required> <br><br>
+
+        Volume Before:<br>
+        <select name = "unitBefore">
+          <option value = "tsp">tsp</option>
+          <option value = "tbsp">tbsp</option>
+          <option value = "cup">cup</option>
+          <option value = "pint">pint</option>
+          <option value = "qt">qt</option>
+          <option value = "gal">gal</option>
+          <option value = "fl oz">fl oz</option>
+          <option value = "l">l</option>
+          <option value = "cubic in">cubic in</option>
+        </select>
+        <br><br>
+
+        Volume After:<br>
+        <select name = "unitAfter">
+          <option value = "tsp">tsp</option>
+          <option value = "tbsp">tbsp</option>
+          <option value = "cup">cup</option>
+          <option value = "pint">pint</option>
+          <option value = "qt">qt</option>
+          <option value = "gal">gal</option>
+          <option value = "fl oz">fl oz</option>
+          <option value = "l">l</option>
+          <option value = "cubic in">cubic in</option>
+        </select>
+        <br><br>
+
+        <input type = "submit" value = "Convert">
+        <input type = "reset" value = "Reset">
+      </form>
     </div>
 
     <script>
@@ -83,7 +119,7 @@
         evt.currentTarget.className += " active";
     }
 
-    // Get the element with id="defaultOpen" and click on it
+    // Get the element with id = "defaultOpen" and click on it
     document.getElementById("defaultOpen").click();
     </script>
 
