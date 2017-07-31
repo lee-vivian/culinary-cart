@@ -49,7 +49,7 @@ if (!query) {
       <a href="plan.php">Weekly Plan</a>
       <a href="list.php">Grocery List</a>
       <a href="history.php">History</a>
-      <a href="converter.php">Converter</a>
+      <a href="convert-units.html">Converter</a>
       <a href="aboutus.html">About Us</a>
     </nav>
 
@@ -76,9 +76,11 @@ if (!query) {
         <?php
         while ($row = mysqli_fetch_array($query))
         {
-          echo '<tr>
-          					<td>'.$row['recipe_id'].'</td>
-                    <td class = "description">'.$row['recipe_name'].'</td>
+          $rID = $row['recipe_id'];
+          $rName = $row['recipe_name'];
+          echo "<tr onclick = 'recipePage($rID, $rName)'>
+          					<td>".$rID.'</td>
+                    <td class = "description">'.$rName.'</td>
                     <td>'.$row['cuisine'].'</td>
                     <td>'.$row['num_servings'].'</td>
                     <td>'.$row['diet_restriction'].'</td>
@@ -90,6 +92,19 @@ if (!query) {
       </tbody>
     </table>
 
+    <script>
+      function recipePage(rID, rName) {
+
+        /* - send rID and rName to display-recipe.php
+           - use rID to retrieve recipe data from tables with sql queries
+           - display data on new html page using php echo statements
+
+           Add edit and delete recipe capabilities
+        */
+        // Jumps to display.php
+        // window.location.href = "display-recipe.php";
+      }
+    </script>
 
   </div>
 

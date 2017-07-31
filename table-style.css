@@ -76,6 +76,10 @@ table td {
   border-color: #ffff0f;
 }
 
+.data-table tbody tr:hover {
+	cursor: pointer;
+}
+
 /* Table Footer */
 .data-table tfoot th {
   background-color: #e5f5ff;
