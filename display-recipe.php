@@ -64,7 +64,6 @@
 
   <h3>Ingredients:</h3>
       <?php
-      echo '<ul>';
       // Get recipe ingredients
       $sql = sprintf("SELECT ingredient_name, quantity, unit_type, weight_unit, volume_unit
                       FROM ingredients
@@ -73,6 +72,8 @@
       if (!query) {
         die ('SQL Error: ' . mysqli_error($conn));
       }
+
+      echo '<ul>';
 
       while ($row = mysqli_fetch_array($query)) {
         $unit_type = $row['unit_type'];
@@ -87,11 +88,30 @@
             $unit = "";
             break;
         }
+
         echo "<li>" . $row['quantity'] . " " . $unit . " " .
           $row['ingredient_name'] . "</li>";
       }
       echo "</ul>";
      ?>
+
+  <h3>Steps:</h3>
+  <?php
+    // Get recipe steps
+    $sql = sprintf('SELECT description
+                    FROM steps
+                    WHERE recipe_id = %s
+                    ORDER BY step_num',$recipe_id);
+    $query = mysqli_query($conn, $sql);
+    if (!query) {
+      die ('SQL Error: ' . mysqli_error($conn));
+    }
+    echo "<ol>";
+    while ($row = mysqli_fetch_array($query)) {
+      echo "<li>" . $row['description'] . "</li>";
+    }
+    echo "</ol>";
+   ?>
 
 </div>
 </body>
