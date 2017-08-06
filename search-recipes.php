@@ -61,6 +61,7 @@ if (!query) {
       <caption class = "title">Recipes</caption>
       <thead>
         <tr>
+          <th>  </th>
           <th>ID</th>
           <th>Name</th>
           <th>Cuisine</th>
@@ -78,23 +79,25 @@ if (!query) {
         {
           $rID = $row['recipe_id'];
           $rName = $row['recipe_name'];
-          echo "<tr onclick = 'recipePage($rID, $rName)'>
-          					<td>".$rID.'</td>
-                    <td class = "description">'.$rName.'</td>
-                    <td>'.$row['cuisine'].'</td>
-                    <td>'.$row['num_servings'].'</td>
-                    <td>'.$row['diet_restriction'].'</td>
-                    <td>'.$row['prep_time'].'</td>
-                    <td>'.$row['cook_time'].'</td>
-                    <td>'.$row['recipe_type'].'</td>
-          				</tr>';
+          $link = 'display-recipe.php?rid='.$rID;
+        //echo "<tr onclick = 'recipePage($rID, $rName)'>
+        echo "<tr>
+               <td><a href='".$link."'>View</a></td>
+          		 <td>".$rID.'</td>
+               <td class = "description">'.$rName.'</td>
+               <td>'.$row['cuisine'].'</td>
+               <td>'.$row['num_servings'].'</td>
+               <td>'.$row['diet_restriction'].'</td>
+               <td>'.$row['prep_time'].'</td>
+               <td>'.$row['cook_time'].'</td>
+               <td>'.$row['recipe_type'].'</td>
+    				 </tr>';
         }?>
       </tbody>
     </table>
 
     <script>
       function recipePage(rID, rName) {
-
         /* - send rID and rName to display-recipe.php
            - use rID to retrieve recipe data from tables with sql queries
            - display data on new html page using php echo statements

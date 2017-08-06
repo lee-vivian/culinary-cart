@@ -1,8 +1,32 @@
 <!DOCTYPE html>
 
 <?php
-  $recipe_id;
-  $recipe_name;
+
+  // Connect to MySQL Database
+  $servername = "127.0.0.1";
+  $username = "root";
+  $password = "root";
+  $dbname = "culinarycart";
+
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
+
+  $recipe_id = $_GET['rid'];
+
+  $sql = sprintf('SELECT recipe_name
+                  FROM recipes
+                  WHERE recipe_id = %s',$recipe_id);
+
+  $query = mysqli_query($conn, $sql);
+  if (!query) {
+    die ('SQL Error: ' . mysqli_error($conn));
+  }
+
+  while ($row = mysqli_fetch_array($query)){
+    $recipe_name = $row['recipe_name'];
+  }
 ?>
 
 <html>
