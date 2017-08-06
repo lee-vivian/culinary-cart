@@ -1,5 +1,5 @@
 # culinary-cart
-Your own kitchen inventory management system to improve the prospect and ease of cooking at home. Compatible with the busy lives in our modern world.
+Your own kitchen inventory management system to improve the prospect and ease of cooking at home. Compatible with busy lives in our modern world.
 
 #### All of your favorite recipes stored in one convenient place
 
