@@ -13,8 +13,10 @@
     die("Connection failed: " . $conn->connect_error);
   }
 
+  // Get recipe id
   $recipe_id = $_GET['rid'];
 
+  // Get recipe name
   $sql = sprintf('SELECT recipe_name
                   FROM recipes
                   WHERE recipe_id = %s',$recipe_id);
@@ -59,6 +61,37 @@
 <div style="margin-left:18%;padding:1px 16px;height:1000px;">
 
   <h1><?php echo $recipe_name ?><br><br></h1>
+
+  <h3>Ingredients:</h3>
+      <?php
+      echo '<ul>';
+      // Get recipe ingredients
+      $sql = sprintf("SELECT ingredient_name, quantity, unit_type, weight_unit, volume_unit
+                      FROM ingredients
+                      WHERE recipe_id = %s",$recipe_id);
+      $query = mysqli_query($conn, $sql);
+      if (!query) {
+        die ('SQL Error: ' . mysqli_error($conn));
+      }
+
+      while ($row = mysqli_fetch_array($query)) {
+        $unit_type = $row['unit_type'];
+        switch($unit_type) {
+          case "weight":
+            $unit = $row['weight_unit'];
+            break;
+          case "volume":
+            $unit = $row['volume_unit'];
+            break;
+          default:
+            $unit = "";
+            break;
+        }
+        echo "<li>" . $row['quantity'] . " " . $unit . " " .
+          $row['ingredient_name'] . "</li>";
+      }
+      echo "</ul>";
+     ?>
 
 </div>
 </body>
