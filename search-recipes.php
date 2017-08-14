@@ -57,7 +57,7 @@ if (!query) {
 
     <h1>Search Recipes<br><br></h1>
 
-    <table class = "data-table">
+    <table id = 'recipes-table' class = "data-table">
       <caption class = "title">Recipes</caption>
       <thead>
         <tr>
@@ -79,10 +79,11 @@ if (!query) {
         {
           $rID = $row['recipe_id'];
           $rName = $row['recipe_name'];
-          $link = 'display-recipe.php?rid='.$rID;
-        //echo "<tr onclick = 'recipePage($rID, $rName)'>
+          $viewLink = 'display-recipe.php?rid='.$rID;
+          $editLink = 'edit-recipe.php?rid='.$rID;
         echo "<tr>
-               <td><a href='".$link."'>View</a></td>
+               <td><a href='".$viewLink."'>View</a>/<a href='".
+                $editLink."'>Edit</a></td>
           		 <td>".$rID.'</td>
                <td class = "description">'.$rName.'</td>
                <td>'.$row['cuisine'].'</td>
@@ -95,19 +96,6 @@ if (!query) {
         }?>
       </tbody>
     </table>
-
-    <script>
-      function recipePage(rID, rName) {
-        /* - send rID and rName to display-recipe.php
-           - use rID to retrieve recipe data from tables with sql queries
-           - display data on new html page using php echo statements
-
-           Add edit and delete recipe capabilities
-        */
-        // Jumps to display.php
-        // window.location.href = "display-recipe.php";
-      }
-    </script>
 
   </div>
 
