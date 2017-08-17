@@ -1,7 +1,6 @@
-<!DOCTYPE html>
-
 <?php
-// Connect to MySQL Database
+
+// Connect to MySQL database
 $servername = "127.0.0.1";
 $username = "root";
 $password = "root";
@@ -22,6 +21,6 @@ $query = mysqli_query($conn, $sql);
 if (!query) {
   die ('SQL Error: ' . mysqli_error($conn));
 }
-
 // Jump back to search-recipes.php
- ?>
+header("Location: search-recipes.php");
+?>
