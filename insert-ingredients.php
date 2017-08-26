@@ -41,5 +41,5 @@ if (!query) {
   die ('SQL Error: ' . mysqli_error($conn));
 }
 
-header('Location: add-ingredients.html');
+header('Location: add-ingredients.php');
 ?>

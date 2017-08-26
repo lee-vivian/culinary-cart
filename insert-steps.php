@@ -37,5 +37,5 @@ if (!query) {
   die ('SQL Error: ' . mysqli_error($conn));
 }
 
-header('Location: add-steps.html');
+header('Location: add-steps.php');
  ?>
