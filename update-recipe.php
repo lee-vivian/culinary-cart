@@ -1,15 +1,7 @@
 <?php
 
-// Connect to MySQL database
-$servername = "127.0.0.1";
-$username = "root";
-$password = "root";
-$dbname = "culinarycart";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
+// Connect to SQL database
+include("connect.php");
 
 $recipe_id = $_GET['rid'];
 $action = $_GET['action'];
@@ -27,7 +19,6 @@ if ($action == 'edit') {
   $tab = $_GET['tab'];
 
   if ($tab == 'overview') {
-
     $recipe_name = "'" . $_POST['name'] . "'";
     $prep_time = $_POST['prep'];
     $cook_time = $_POST['cook'];
@@ -51,6 +42,12 @@ if ($action == 'edit') {
     if (!query) {
       die ('SQL Error: ' . mysqli_error($conn));
     }
+  }
+  elseif($tab == 'ingredients') {
+
+  }
+  elseif($tab == 'steps') {
+
   }
 }
 
