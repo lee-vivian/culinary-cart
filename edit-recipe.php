@@ -53,70 +53,80 @@
 <html>
 
 <head>
+
   <title>Edit: <?php echo $recipe_name ?></title>
 
   <link href = "style.css" type = "text/css" rel = "stylesheet">
-  <link href = "table-style.css" type = "text/css" rel = "stylesheet">
+  <link href = "tabs.css" type = "text/css" rel = "stylesheet"></link>
 </head>
 
 <body>
-  <nav>
-    <a href = "index.html">Home</a>
-    <li class = "dropdown">
-      <a href="#" class = "dropbtn">Recipes</a>
-      <div class = "dropdown-content">
-        <a href = "search-recipes.php">Search</a>
-        <a href = "add-recipe.html">Add</a>
-      </div>
-    </li>
-    <a href="pantry.php">Pantry</a>
-    <a href="plan.php">Weekly Plan</a>
-    <a href="list.php">Grocery List</a>
-    <a href="history.php">History</a>
-    <a href="convert-units.html">Converter</a>
-    <a href="aboutus.html">About Us</a>
-  </nav>
+
+  <?php include("navbar.html") ?>
 
   <div style="margin-left:18%;padding:1px 16px;height:1000px;">
     <h1>Edit: <?php echo $recipe_name ?><br><br></h1>
 
-     <h3>Overview:</h3>
+    <div class="tab">
+      <button class="tablinks" onclick="openRecipeTab(event, 'Overview')"
+        id="overview-tab">Overview</button>
+      <button class="tablinks" onclick="openRecipeTab(event, 'Ingredients')"
+        id = "ingredients-tab">Ingredients</button>
+      <button class="tablinks" onclick="openRecipeTab(event, 'Steps')"
+        id = "steps-tab">Steps</button>
+    </div>
 
-     <form action = <?php echo $editLink?> method = "post">
-       Recipe Name:<br>
-         <input type = "text" name = "name" value = <?php echo "'" . $recipe_name . "'"?> required> <br><br>
-       Prep Time:<br>
-         <input type = "number" name = "prep" min = "0" value = <?php echo $prep_time?> required> min.<br><br>
-       Cook Time:<br>
-         <input type = "number" name = "cook" min = "0" value = <?php echo $cook_time?> required> min.<br><br>
-       Cuisine:<br>
-         <input type = "text" name = "cuisine" value = <?php echo "'" . $cuisine . "'"?>>
-       <br><br>
-       Dietary Restrictions:<br>
-       <select name = "diet">
-         <?php selectDefault("none", $diet_restriction)?>
-         <?php selectDefault("vegetarian", $diet_restriction)?>
-         <?php selectDefault("vegan", $diet_restriction)?>
-         <?php selectDefault("gluten free", $diet_restriction)?>
-         <?php selectDefault("kosher", $diet_restriction)?>
-         <?php selectDefault("pescetarian", $diet_restriction)?>
-         <?php selectDefault("nut allergies", $diet_restriction)?>
-      </select>
-       <br><br>
-       Recipe Type:<br>
-       <select name = "type">
-         <?php selectDefault("meal", $recipe_type)?>
-         <?php selectDefault("drink", $recipe_type)?>
-         <?php selectDefault("snack", $recipe_type)?>
+    <!-- Overview tab form -->
+
+    <div id="Overview" class="tabcontent">
+
+      <?php $editLink = substr($editLink,0,strlen($editLink)-1) . "&tab=overview'";
+      ?>
+
+      <form action= <?php echo $editLink?> method = "post">
+        <br>
+        <input type = "hidden" name = "recipeTab" value="overview">
+
+        Recipe Name:<br>
+          <input type = "text" name = "name" value = <?php echo "'" . $recipe_name . "'"?> required> <br><br>
+        Prep Time:<br>
+          <input type = "number" name = "prep" min = "0" value = <?php echo $prep_time?> required> min.<br><br>
+        Cook Time:<br>
+          <input type = "number" name = "cook" min = "0" value = <?php echo $cook_time?> required> min.<br><br>
+        Cuisine:<br>
+          <input type = "text" name = "cuisine" value = <?php echo "'" . $cuisine . "'"?>>
+        <br><br>
+        Dietary Restrictions:<br>
+        <select name = "diet">
+          <?php selectDefault("none", $diet_restriction)?>
+          <?php selectDefault("vegetarian", $diet_restriction)?>
+          <?php selectDefault("vegan", $diet_restriction)?>
+          <?php selectDefault("gluten free", $diet_restriction)?>
+          <?php selectDefault("kosher", $diet_restriction)?>
+          <?php selectDefault("pescetarian", $diet_restriction)?>
+          <?php selectDefault("nut allergies", $diet_restriction)?>
        </select>
-       <br><br>
-       Servings:<br>
-         <input type = "number" name = "servings" min = "1" value = <?php echo $num_servings?> required>
-       <br><br>
+        <br><br>
+        Recipe Type:<br>
+        <select name = "type">
+          <?php selectDefault("meal", $recipe_type)?>
+          <?php selectDefault("drink", $recipe_type)?>
+          <?php selectDefault("snack", $recipe_type)?>
+        </select>
+        <br><br>
+        Servings:<br>
+          <input type = "number" name = "servings" min = "1" value = <?php echo $num_servings?> required>
+        <br><br>
 
-    <h3>Ingredients:</h3>
+        <input type = "submit" value = "Save Changes">
+        <input type = "reset" value = "Undo Changes">
+      </form>
+    </div>
+
+    <!-- Ingredients tab form -->
 
     <?php
+
     /*
     // Get recipe ingredients array
     $sql = sprintf('SELECT ingredient_name, quantity, unit_type, weight_unit, volume_unit
@@ -127,11 +137,23 @@
       die ('SQL Error: ' . mysqli_error($conn));
     }
 
+    $ingredient_no = 0;
+
     while ($row = mysqli_fetch_array($query)) {
 
+      $iname = "'iname" . $ingredient_no . "'";
+
+      echo "<input type = 'text' name = iname" . $iname . "placeholder="Ingredient" required>"
+
+      $iname += 1;
+
+    // pass $ingredient_no into form action link
+
     }
+    /*
      ?>
     <br><br>
+
     <h3>Steps:</h3>
 
     <?php
@@ -149,11 +171,7 @@
     }
     */
      ?>
-
-       <input type = "submit" value = "Save Changes">
-       <input type = "reset" value = "Undo Changes">
-     </form>
-
+     <br>
      <button type = "button" onclick = "deleteRecipe('<?php echo $recipe_id?>','<?php echo $recipe_name?>')">Delete Recipe</button>
 
     <script>
@@ -167,6 +185,23 @@
           window.location = "search-recipes.php";
         }
       }
+
+      function openRecipeTab(evt, recipeTab) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for(i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(recipeTab).style.display = "block";
+        evt.currentTarget.className += " active";
+      }
+
+      // Get the element with id = "overview-tab" and click on it
+      document.getElementById("overview-tab").click();
     </script>
 
   </div>

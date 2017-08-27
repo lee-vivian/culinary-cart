@@ -4,8 +4,8 @@
 
 <head>
   <title>Measurement Converter</title>
-  <link><link href = "style.css" type = "text/css" rel = "stylesheet"></link>
-  <link><link href = "tabs.css" type = "text/css" rel = "stylesheet"></link>
+  <link href = "style.css" type = "text/css" rel = "stylesheet"></link>
+  <link href = "tabs.css" type = "text/css" rel = "stylesheet"></link>
 </head>
 
 <body>
@@ -17,7 +17,7 @@
 
     <div class="tab">
       <button class="tablinks" onclick="openUnitType(event, 'Weight')"
-        id="defaultOpen">Weight</button>
+        id="weight-tab">Weight</button>
       <button class="tablinks" onclick="openUnitType(event, 'Volume')">Volume</button>
     </div>
 
@@ -105,8 +105,8 @@
         evt.currentTarget.className += " active";
     }
 
-    // Get the element with id = "defaultOpen" and click on it
-    document.getElementById("defaultOpen").click();
+    // Get the element with id = "weight-tab" and click on it
+    document.getElementById("weight-tab").click();
     </script>
 
   </div>
