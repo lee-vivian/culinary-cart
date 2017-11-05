@@ -6,7 +6,7 @@ include("connect.php");
 $recipe_id = $_GET['rid'];
 $action = $_GET['action'];
 
-if ($action == 'delete') {
+if ($action == 'deleteRecipe') {
   $sql = sprintf('DELETE FROM recipes WHERE recipe_id = %d', $recipe_id);
   $query = mysqli_query($conn, $sql);
   if (!query) {
@@ -14,7 +14,21 @@ if ($action == 'delete') {
   }
 }
 
-if ($action == 'edit') {
+/*
+elseif($action = 'deleteIngredient') {
+  $iname = $_GET['iname'];
+  $sql = sprintf('DELETE FROM ingredients WHERE recipe_id = %d AND ingredient_name = %s',
+  $recipe_id, $iname);
+  $query = mysqli_query($conn, $sql);
+  if (!query) {
+    die('SQL Error: ' . mysqli_error($conn));
+  }
+  // Jump back to edit recipe's ingredients page
+  header("Location: edit-recipe.php");
+}
+*/
+
+elseif ($action == 'edit') {
 
   $tab = $_GET['tab'];
 
@@ -44,7 +58,52 @@ if ($action == 'edit') {
       }
     }
     elseif($tab == 'ingredients') {
+      $ingredientsToDelete = $_POST['ingredientsToDelete'];
+      $hasNewIngredientName = isset($_POST['newIngredientName']);
+      $hasNewIngredientQuantity = isset($_POST['newIngredientQuantity']);
 
+      // Delete selected ingredients from recipe
+      foreach($ingredientsToDelete as $i) {
+        $sql = sprintf('DELETE FROM ingredients WHERE recipe_id = %d AND ingredient_name = %s', $recipe_id, "'" . $i . "'");
+        $query = mysqli_query($conn, $sql);
+        if (!query) {
+          die ('SQL Error: ' . mysqli_error($conn));
+        }
+      }
+
+      // Add new ingredients to recipe
+
+      if ($hasNewIngredientName && $hasNewIngredientQuantity) {
+
+        $newIngredientName = $_POST['newIngredientName'];
+        $newIngredientQuantity = $_POST['newIngredientQuantity'];
+        $newIngredientUnitType = $_POST['newIngredientUnitType'];
+        $newIngredientWeightUnit = $_POST['newIngredientWeightUnit'];
+        $newIngredientVolumeUnit = $_POST['newIngredientVolumeUnit'];
+
+        for($i = 0; $i < sizeof($_POST['newIngredientName']); $i++) {
+
+          if ($newIngredientName[$i] == "") {}
+          elseif ($newIngredientQuantity[$i] == "") {}
+          else {
+
+            $name = "'" . $newIngredientName[$i] . "'";
+            $unitType = "'" . $newIngredientUnitType[$i] . "'";
+            $weightUnit = "'" . $newIngredientWeightUnit[$i] . "'";
+            $volumeUnit = "'" . $newIngredientVolumeUnit[$i] . "'";
+
+            $sql = sprintf("INSERT INTO ingredients (`ingredient_name`,
+              `quantity`, `unit_type`, `weight_unit`, `volume_unit`, `recipe_id`)
+              VALUES (%s, %d, %s, %s, %s, %d)", $name, $newIngredientQuantity[$i],
+              $unitType, $weightUnit, $volumeUnit, $recipe_id);
+
+            $query = mysqli_query($conn,$sql);
+            if (!query) {
+              die ('SQL Error: ' . mysqli_error($conn));
+            }
+          }
+        }
+      }
     }
     elseif($tab == 'steps') {
 

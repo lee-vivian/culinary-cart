@@ -168,27 +168,36 @@ $sql = sprintf('SELECT recipe_name, prep_time, cook_time, cuisine, diet_restrict
             <form action= <?php echo $editIngredientsLink?> method = "post">
               <br>
 
+              Select Ingredients to Delete:<br><br>
+
               <?php
+
               foreach($listOfIngredients as $ingredients_array) {
 
-                if($ingredients_array['unit']!=""){
+                $temp_name = $ingredients_array['ingredient_name'];
+                $temp_quantity = $ingredients_array['quantity'];
+                if($ingredients_array['unit'] != "") {
                   $temp_unit = " " . $ingredients_array['unit'] . " ";
                 }
                 else {
                   $temp_unit = " ";
                 }
 
-                echo "<button type = 'button' onclick = ''>X</button> " .
-                $ingredients_array['quantity'] . $temp_unit . $ingredients_array['ingredient_name'] .
-                "<br>";
+                echo sprintf("<input type = 'checkbox' name = 'ingredientsToDelete[]' value = '%s'> %.2f%s%s<br>",
+                $temp_name, $temp_quantity, $temp_unit, $temp_name);
+
               }
               ?>
+              <br>
 
               <div id = "dynamicIngredientsInput">
               </div>
 
               <br>
-              <button type = "button" onclick = "addIngredient('dynamicStepsInput')">Add Ingredient</button>
+
+              <button type = "button" onclick = "addIngredient('dynamicIngredientsInput')">Add Ingredient</button>
+
+              <button type = "button" onclick = "undoAddIngredient('dynamicIngredientsInput')">Undo</button>
               <br>
 
               <br><br>
@@ -200,6 +209,7 @@ $sql = sprintf('SELECT recipe_name, prep_time, cook_time, cuisine, diet_restrict
           </div>
 
           <!-- Steps tab form -->
+
           <div id = "Steps" class = "tabcontent">
 
             <?php
@@ -244,7 +254,7 @@ $sql = sprintf('SELECT recipe_name, prep_time, cook_time, cuisine, diet_restrict
           <script>
           function deleteRecipe(recipe_id, recipe_name) {
             var msg = "Are you sure you want to delete: " + recipe_name + "?";
-            var updateWindow = "update-recipe.php?rid=" + recipe_id + "&action=delete";
+            var updateWindow = "update-recipe.php?rid=" + recipe_id + "&action=deleteRecipe";
             if (confirm(msg)) {
               window.location = updateWindow;
             }
@@ -253,11 +263,31 @@ $sql = sprintf('SELECT recipe_name, prep_time, cook_time, cuisine, diet_restrict
             }
           }
 
+          function addIngredient(divName) {
+            var newDivNameQuantity = document.createElement('div');
+            var newDivUnit = document.createElement('div');
+            var iname = "<input type = 'text' name = 'newIngredientName[]' placeholder='ingredient name'> ";
+            var iquantity = "<input type = 'number' name = 'newIngredientQuantity[]' min = '0' step = '0.01' placeholder='0.00'> ";
+            var iunittype = "<select name = 'newIngredientUnitType[]'> <option value = 'count' selected>count</option> <option value = 'weight'>weight</option> <option value = 'volume'>volume</option> </select> ";
+            var iweightunit = "<select name = 'newIngredientWeightUnit[]'> <option value = 'null'>n/a</option> <option value = 'lb'>lb</option> <option value = 'oz'>oz</option> <option value = 'g'>g</option> <option value = 'kg'>kg</option> </select> ";
+            var ivolumeunit = "<select name = 'newIngredientVolumeUnit[]'> <option value = 'null'>n/a</option> <option value = 'tsp'>tsp</option> <option value = 'tbsp'>tbsp</option> <option value = 'cup'>cup</option> <option value = 'pint'>pint</option> <option value = 'qt'>qt</option> <option value = 'gal'>gal</option> <option value = 'fl oz'>fl oz</option> <option value = 'l'>l</option> <option value = 'cubic in'>cubic in</option> </select> ";
+            newDivNameQuantity.innerHTML = iname + iquantity;
+            newDivUnit.innerHTML = iunittype + iweightunit + ivolumeunit;
+            document.getElementById(divName).appendChild(newDivNameQuantity);
+            document.getElementById(divName).appendChild(newDivUnit);
+          }
+
+          function undoAddIngredient(divName) {
+            var element = document.getElementById(divName);
+            element.removeChild(element.lastChild);
+            element.removeChild(element.lastChild);
+          }
+
           var stepNumCounter = <?php echo $numSteps?>;
 
           function addStep(divName) {
             var newdiv = document.createElement('div');
-            newdiv.innerHTML = "Step " + (stepNumCounter++) +  ". <br><br><textarea name = 'newSteps[]' rows = '3' cols = '80'>";
+            newdiv.innerHTML = "Step " + (++stepNumCounter) +  ". <br><br><textarea name = 'newSteps[]' rows = '3' cols = '80'>";
             document.getElementById(divName).appendChild(newdiv);
           }
 
